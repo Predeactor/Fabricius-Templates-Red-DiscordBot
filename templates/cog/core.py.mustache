@@ -1,0 +1,22 @@
+from redbot.core import commands{{#use_config}}, Config{{/use_config}}
+from redbot.core.bot import Red
+
+
+class {{ pascal_cog_name }}(commands.Cog):
+    bot: Red
+    {{#use_config}}config: Config{{/use_config}}
+
+    def __init__(self, bot: Red):
+        self.bot = bot
+        {{#use_config}}
+        self.config = Config.get_conf(
+            self,
+            identifier={{config_id}},
+            force_registration=True
+        )
+        {{/use_config}}
+
+
+def setup(bot: Red):
+    cog = {{ pascal_cog_name }}(bot)
+    bot.add_cog(cog)
